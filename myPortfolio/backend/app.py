@@ -159,3 +159,5 @@ def create_app() -> Flask:
 			db.session.remove()
 
 	return app
+# Expose a module-level app instance for platforms that don't support --factory
+app = create_app()
