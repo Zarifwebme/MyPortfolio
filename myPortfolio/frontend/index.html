@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Zarifjon - Full-Stack Developer</title>
+	<meta name="description" content="Full-stack developer specializing in Python, Flask, and modern web applications. View my projects and get in touch." />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+	<link href="/assets/styles.css" rel="stylesheet" />
+</head>
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">Zarifjon.dev</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto me-3">
+					<li class="nav-item"><a class="nav-link" href="#about" data-lang="nav.about">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#skills" data-lang="nav.skills">Skills</a></li>
+					<li class="nav-item"><a class="nav-link" href="#projects" data-lang="nav.projects">Projects</a></li>
+					<li class="nav-item"><a class="nav-link blog-link" href="/blog.html">Blog</a></li>
+					<li class="nav-item"><a class="nav-link" href="#contact" data-lang="nav.contact">Contact</a></li>
+				</ul>
+				<!-- Language Selector -->
+				<div class="dropdown me-3">
+					<button class="btn btn-outline-primary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+						<span class="language-selector">EN</span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="languageDropdown" role="menu">
+						<li><a class="dropdown-item" href="#" role="menuitemradio" data-language-option="en" aria-checked="true">EN</a></li>
+						<li><a class="dropdown-item" href="#" role="menuitemradio" data-language-option="uz" aria-checked="false">UZ</a></li>
+					</ul>
+				</div>
+				<!-- Theme Toggle Button -->
+				<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+					<i class="bi bi-sun-fill icon sun"></i>
+					<i class="bi bi-moon-fill icon moon"></i>
+				</button>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Hero Section -->
+	<section class="hero" id="hero">
+		<div class="container">
+			<div class="row align-items-center min-vh-100">
+				<div class="col-lg-6 hero-content animate-fade-in-up">
+					<div class="text-center text-lg-start">
+						<img src="/media/hero.jpg" alt="Hero" class="hero-avatar mx-auto mx-lg-0 d-block" />
+						<h1 class="hero-title">
+							<span data-lang="hero.greeting">Hi, I'm</span> <span class="text-gradient">Zarifjon</span>
+						</h1>
+						<p class="hero-subtitle" data-lang="hero.subtitle">
+							Full-stack developer crafting reliable, scalable web applications with modern technologies.
+						</p>
+						<div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
+							<a href="#projects" class="btn btn-primary">
+								<i class="bi bi-eye"></i>
+								<span data-lang="hero.viewProjects">View Projects</span>
+							</a>
+							<button id="fetchReposBtn" class="btn btn-secondary">
+								<i class="bi bi-github"></i>
+								<span data-lang="hero.githubRepos">GitHub Repos</span>
+							</button>
+						</div>
+						<div class="mt-4 d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+							<span class="badge bg-dark">Python</span>
+							<span class="badge bg-success">SQLAlchemy</span>
+							<span class="badge bg-info">Bootstrap</span>
+							<span class="badge bg-dark">Flask</span>
+							<span class="badge bg-warning">JavaScript</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 d-none d-lg-block animate-fade-in">
+					<div class="text-center">
+						<div class="position-relative">
+							<div class="bg-primary rounded-4 p-5 shadow-lg">
+								<i class="bi bi-code-slash display-1 text-white"></i>
+							</div>
+							<div class="position-absolute top-0 start-0 bg-accent rounded-4 p-3 shadow-lg" style="transform: translate(-20px, -20px);">
+								<i class="bi bi-database text-white fs-1"></i>
+							</div>
+							<div class="position-absolute bottom-0 end-0 bg-secondary rounded-4 p-3 shadow-lg" style="transform: translate(20px, 20px);">
+								<i class="bi bi-gear text-white fs-1"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section class="py-5" id="about">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8 text-center">
+					<h2 class="section-heading mb-4" data-lang="about.title">About Me</h2>
+					<p class="lead mb-4" data-lang="about.description">
+						I am a software engineer specialized in creating efficient, optimized, and user-friendly solutions.
+						I love building applications that solve real-world problems and provide exceptional user experiences.
+						Through my portfolio projects, you can explore my programming skills, creativity, and passion for technology. In every project, I focus on delivering both quality and impactful results.
+					</p>
+					<div class="mt-3">
+						<a href="/media/cv" class="btn btn-outline-primary border border-primary" target="_blank" rel="noopener" data-lang="about.downloadCV">Download CV</a>
+					</div>
+					<div class="row g-4 mt-4">
+						<div class="col-md-4">
+							<div class="text-center p-3">
+								<i class="bi bi-code-square text-primary fs-1 mb-3"></i>
+								<h5 data-lang="about.features.cleanCode.title">Clean Code</h5>
+								<p class="text-muted" data-lang="about.features.cleanCode.description">Writing maintainable, well-documented code</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="text-center p-3">
+								<i class="bi bi-lightning text-accent fs-1 mb-3"></i>
+								<h5 data-lang="about.features.performance.title">Performance</h5>
+								<p class="text-muted" data-lang="about.features.performance.description">Optimizing for speed and efficiency</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="text-center p-3">
+								<i class="bi bi-phone text-secondary fs-1 mb-3"></i>
+								<h5 data-lang="about.features.responsive.title">Responsive</h5>
+								<p class="text-muted" data-lang="about.features.responsive.description">Mobile-first design approach</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Skills Section -->
+	<section class="py-5" id="skills">
+		<div class="container">
+			<div class="row justify-content-center mb-5">
+				<div class="col-lg-8 text-center">
+					<h2 class="section-heading" data-lang="skills.title">Skills</h2>
+					<p class="lead" data-lang="skills.description">A quick overview of my technical skills and proficiency levels.</p>
+				</div>
+			</div>
+			
+			<div id="skillsContainer" class="row g-4"></div>
+		</div>
+	</section>
+
+	<!-- Projects Section -->
+	<section class="py-5 bg-tertiary" id="projects">
+		<div class="container">
+			<div class="row justify-content-center mb-5">
+				<div class="col-lg-8 text-center">
+					<h2 class="section-heading" data-lang="projects.title">Featured Projects</h2>
+					<p class="lead" data-lang="projects.description">A selection of my recent work showcasing different technologies and solutions.</p>
+				</div>
+			</div>
+			<div id="projectsContainer" class="row g-4"></div>
+		</div>
+	</section>
+
+	<!-- GitHub Repos Section -->
+	<section class="py-5" id="github">
+		<div class="container">
+			<div class="row justify-content-center mb-5">
+				<div class="col-lg-8 text-center">
+					<h2 class="section-heading" data-lang="github.title">GitHub Repositories</h2>
+					<p class="lead" data-lang="github.description">Explore my open-source contributions and personal projects.</p>
+				</div>
+			</div>
+			<div id="reposContainer" class="row g-4"></div>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+	<section class="py-5" id="contact">
+		<div class="container">
+			<div class="row justify-content-center mb-5">
+				<div class="col-lg-8 text-center">
+					<h2 class="section-heading" data-lang="contact.title">Contact Me</h2>
+					<p class="lead" data-lang="contact.description">Have a question or want to work together? Send me a message.</p>
+				</div>
+			</div>
+			<div class="row g-5">
+				<div class="col-lg-8 mx-auto">
+					<div class="contact-form">
+						<h5 class="mb-4" data-lang="contact.form.title">Send a Message</h5>
+						<form id="contactForm">
+							<div class="row g-3">
+								<div class="col-md-6">
+									<label for="firstName" class="form-label" data-lang="contact.form.firstName">First Name *</label>
+									<input type="text" class="form-control" id="firstName" name="firstName" required>
+								</div>
+								<div class="col-md-6">
+									<label for="lastName" class="form-label" data-lang="contact.form.lastName">Last Name *</label>
+									<input type="text" class="form-control" id="lastName" name="lastName" required>
+								</div>
+								<div class="col-12">
+									<label for="phoneNumber" class="form-label" data-lang="contact.form.phoneNumber">Phone Number *</label>
+									<input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+								</div>
+								<div class="col-12">
+									<label for="message" class="form-label" data-lang="contact.form.message">Message *</label>
+									<textarea class="form-control" id="message" name="message" rows="5" required data-lang="contact.form.messagePlaceholder" placeholder="Tell me about your project, question, or how I can help you..."></textarea>
+								</div>
+								<div class="col-12">
+									<button type="submit" class="btn btn-primary btn-lg w-100">
+										<i class="bi bi-send me-2"></i>
+										<span data-lang="contact.form.sendMessage">Send Message</span>
+									</button>
+								</div>
+							</div>
+						</form>
+						<div id="formMessage" class="mt-3" style="display: none;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="footer-content">
+				<div class="footer-links">
+					<a href="#about" class="footer-link">About</a>
+					<a href="#skills" class="footer-link">Skills</a>
+					<a href="#projects" class="footer-link">Projects</a>
+					<a href="#contact" class="footer-link">Contact</a>
+				</div>
+				<div class="social-links">
+					<a href="" class="social-link" target="_blank" rel="noopener">
+						<i class="bi bi-telegram"></i>
+					</a>
+					<a href="https://github.com/yourusername" class="social-link" target="_blank" rel="noopener">
+						<i class="bi bi-github"></i>
+					</a>
+					<a href="https://linkedin.com/in/yourusername" class="social-link" target="_blank" rel="noopener">
+						<i class="bi bi-linkedin"></i>
+					</a>
+					<a href="mailto:your.email@example.com" class="social-link">
+						<i class="bi bi-envelope"></i>
+					</a>
+				</div>
+			</div>
+			<hr class="my-4">
+			<div class="text-center text-muted">
+				<small>&copy; <span id="year"></span> Zarifjon. <span data-lang="footer.copyright">All rights reserved.</span></small>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- Custom Scripts -->
+	<script src="/assets/languages.js"></script>
+	<script>
+		// Set current year
+		document.getElementById('year').textContent = new Date().getFullYear();
+		
+		// Smooth scrolling for navigation links
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				const target = document.querySelector(this.getAttribute('href'));
+				if (target) {
+					target.scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
+			});
+		});
+		
+		// Active navigation highlighting
+		window.addEventListener('scroll', () => {
+			const sections = document.querySelectorAll('section[id]');
+			const navLinks = document.querySelectorAll('.nav-link');
+			
+			let current = '';
+			sections.forEach(section => {
+				const sectionTop = section.offsetTop;
+				const sectionHeight = section.clientHeight;
+				if (scrollY >= (sectionTop - 200)) {
+					current = section.getAttribute('id');
+				}
+			});
+			
+			navLinks.forEach(link => {
+				link.classList.remove('active');
+				if (link.getAttribute('href') === `#${current}`) {
+					link.classList.add('active');
+				}
+			});
+		});
+	</script>
+	<script src="/assets/main.js"></script>
+	<script src="/assets/contact.js"></script>
+	<script src="/assets/skills.js"></script>
+	<script src="/assets/theme.js"></script>
+</body>
+</html>

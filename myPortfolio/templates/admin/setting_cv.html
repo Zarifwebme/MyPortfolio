@@ -1,0 +1,22 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<h1 class="mb-3">CV File</h1>
+<form method="post" enctype="multipart/form-data" class="card p-3">
+	<div class="mb-3">
+		<label class="form-label">Upload new CV (PDF)</label>
+		<input class="form-control" type="file" name="cv" accept="application/pdf" required />
+	</div>
+	{% if setting and setting.image_data %}
+		<div class="mb-3">
+			<label class="form-label">Current CV</label>
+			<a href="/media/cv" target="_blank" class="btn btn-outline-secondary">View CV</a>
+		</div>
+	{% endif %}
+	<div>
+		<button class="btn btn-primary">Save</button>
+		<a class="btn btn-secondary" href="{{ url_for('admin.dashboard') }}">Back</a>
+	</div>
+</form>
+{% endblock %}
+
+

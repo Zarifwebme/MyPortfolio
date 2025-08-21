@@ -1,0 +1,26 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+	<h1>Contact Entries</h1>
+	<a class="btn btn-primary" href="{{ url_for('admin.admin_contact_create') }}">New Contact</a>
+</div>
+<table class="table table-striped">
+	<thead><tr><th>Email</th><th>Phone</th><th>LinkedIn</th><th>GitHub</th><th></th></tr></thead>
+	<tbody>
+		{% for item in items %}
+		<tr>
+			<td>{{ item.email }}</td>
+			<td>{{ item.phone }}</td>
+			<td>{% if item.linkedin %}<a href="{{ item.linkedin }}" target="_blank">Link</a>{% endif %}</td>
+			<td>{% if item.github %}<a href="{{ item.github }}" target="_blank">Link</a>{% endif %}</td>
+			<td class="text-end">
+				<a class="btn btn-sm btn-secondary" href="{{ url_for('admin.admin_contact_edit', item_id=item.id) }}">Edit</a>
+				<form method="post" action="{{ url_for('admin.admin_contact_delete', item_id=item.id) }}" class="d-inline" onsubmit="return confirm('Delete?')">
+					<button class="btn btn-sm btn-danger">Delete</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

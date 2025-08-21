@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+	<h1>Projects</h1>
+	<a class="btn btn-primary" href="{{ url_for('admin.admin_project_create') }}">New Project</a>
+</div>
+<table class="table table-striped">
+	<thead><tr><th>Image</th><th>Title</th><th>Tech</th><th>Links</th><th></th></tr></thead>
+	<tbody>
+		{% for item in items %}
+		<tr>
+			<td style="width: 120px;">
+				{% if item.image_url %}
+					<img src="{{ item.image_url }}" alt="{{ item.title }}" style="max-height: 60px; border-radius: .25rem;" />
+				{% endif %}
+			</td>
+			<td>{{ item.title }}</td>
+			<td>{{ item.tech_stack }}</td>
+			<td>
+				{% if item.github_link %}<a href="{{ item.github_link }}" target="_blank">GitHub</a>{% endif %}
+				{% if item.demo_link %} | <a href="{{ item.demo_link }}" target="_blank">Demo</a>{% endif %}
+			</td>
+			<td class="text-end">
+				<a class="btn btn-sm btn-secondary" href="{{ url_for('admin.admin_project_edit', item_id=item.id) }}">Edit</a>
+				<form method="post" action="{{ url_for('admin.admin_project_delete', item_id=item.id) }}" class="d-inline" onsubmit="return confirm('Delete?')">
+					<button class="btn btn-sm btn-danger">Delete</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
