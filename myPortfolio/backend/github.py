@@ -1,8 +1,39 @@
 import os
+from time import time
 from flask import Blueprint, jsonify, request, current_app
 import requests
 
 github_bp = Blueprint("github", __name__)
+
+
+# -------- Simple in-memory cache to reduce GitHub API calls --------
+_CACHE_TTL_SECONDS = int(os.getenv("GITHUB_CACHE_TTL", "300"))  # default 5 minutes
+_cache_store: dict[str, dict] = {}
+
+
+def _cache_get(key: str):
+	entry = _cache_store.get(key)
+	if not entry:
+		return None
+	if time() - entry.get("ts", 0) < _CACHE_TTL_SECONDS:
+		return entry.get("data")
+	return None
+
+
+def _cache_set(key: str, data):
+	_cache_store[key] = {"ts": time(), "data": data}
+
+
+def _build_github_headers() -> dict:
+	headers = {
+		'User-Agent': 'Portfolio-App/1.0',
+		'Accept': 'application/vnd.github.v3+json'
+	}
+	# Use a token when provided to avoid low unauthenticated rate limits
+	token = os.getenv("GITHUB_TOKEN")
+	if token:
+		headers['Authorization'] = f"Bearer {token}"
+	return headers
 
 
 @github_bp.get("/github/stats")
@@ -15,12 +46,14 @@ def github_stats():
 		# Get user info
 		user_url = f"https://api.github.com/users/{username}"
 		repos_url = f"https://api.github.com/users/{username}/repos?per_page=100&sort=updated"
-		
-		headers = {
-			'User-Agent': 'Portfolio-App/1.0',
-			'Accept': 'application/vnd.github.v3+json'
-		}
-		
+		headers = _build_github_headers()
+
+		# Serve from cache if available
+		_cache_key = f"stats:{username}"
+		cached = _cache_get(_cache_key)
+		if cached is not None:
+			return jsonify(cached)
+
 		# Fetch user and repos data
 		user_resp = requests.get(user_url, headers=headers, timeout=15)
 		repos_resp = requests.get(repos_url, headers=headers, timeout=15)
@@ -99,7 +132,9 @@ def github_stats():
 			"top_starred": top_starred,
 			"recent_repos": recent_repos
 		}
-		
+		# Cache result to reduce API calls
+		_cache_set(_cache_key, stats)
+
 		current_app.logger.info(f"Successfully fetched GitHub stats for user {username}")
 		return jsonify(stats)
 		
@@ -131,11 +166,14 @@ def github_user():
 	url = f"https://api.github.com/users/{username}"
 	
 	try:
-		headers = {
-			'User-Agent': 'Portfolio-App/1.0',
-			'Accept': 'application/vnd.github.v3+json'
-		}
-		
+		headers = _build_github_headers()
+
+		# Serve from cache if available
+		_cache_key = f"user:{username}"
+		cached = _cache_get(_cache_key)
+		if cached is not None:
+			return jsonify(cached)
+
 		resp = requests.get(url, headers=headers, timeout=15)
 		resp.raise_for_status()
 		data = resp.json()
@@ -163,6 +201,9 @@ def github_user():
 			"site_admin": data.get("site_admin")
 		}
 		
+		# Cache
+		_cache_set(_cache_key, mapped)
+
 		current_app.logger.info(f"Successfully fetched GitHub user profile for {username}")
 		return jsonify(mapped)
 		
@@ -194,12 +235,14 @@ def github_repos():
 	url = f"https://api.github.com/users/{username}/repos?per_page=100&sort=updated"
 	
 	try:
-		# Add User-Agent header to avoid GitHub API rate limiting
-		headers = {
-			'User-Agent': 'Portfolio-App/1.0',
-			'Accept': 'application/vnd.github.v3+json'
-		}
-		
+		headers = _build_github_headers()
+
+		# Serve from cache if available
+		_cache_key = f"repos:{username}"
+		cached = _cache_get(_cache_key)
+		if cached is not None:
+			return jsonify(cached)
+
 		resp = requests.get(url, headers=headers, timeout=15)
 		resp.raise_for_status()
 		data = resp.json()
@@ -242,6 +285,9 @@ def github_repos():
 		# Sort by stars, then by update date
 		mapped.sort(key=lambda x: (x["stargazers_count"], x["updated_at"]), reverse=True)
 		
+		# Cache
+		_cache_set(_cache_key, mapped)
+
 		current_app.logger.info(f"Successfully fetched {len(mapped)} repositories for user {username}")
 		return jsonify(mapped)
 		
